@@ -261,6 +261,7 @@ class CupertinoLeftScrollState extends State<CupertinoLeftScroll>
     }
     animationController.animateTo(
       -maxDragDistance,
+      curve: Curves.easeOut,
       duration: widget._bounceStyle.duration,
     );
     if (widget.closeTag == null) return;
@@ -273,7 +274,7 @@ class CupertinoLeftScrollState extends State<CupertinoLeftScroll>
       widget.onOpenChanged(false);
     }
     if (translateX != 0) {
-      animationController.animateTo(0);
+      animationController.animateTo(0,curve: Curves.easeOut,);
     }
     if (widget.closeTag == null) return;
     if (_ct.value == true) {

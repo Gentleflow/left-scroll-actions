@@ -122,33 +122,36 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(top: 12, left: 8, bottom: 8),
               child: Text('CupertinoLeftScrollRow'),
             ),
-            CupertinoLeftScroll(
-              buttonWidth: 60,
-              child: Container(
-                height: 60,
-                color: Colors.white,
-                alignment: Alignment.center,
-                child: Text('👈 Try Scroll Left(iOS style)'),
+            Container(
+              margin: EdgeInsets.only(right: 40),
+              child: CupertinoLeftScroll(
+                buttonWidth: 60,
+                child: Container(
+                  height: 60,
+                  color: Colors.white,
+                  alignment: Alignment.center,
+                  child: Text('👈 Try Scroll Left(iOS style)'),
+                ),
+                buttons: <Widget>[
+                  LeftScrollItem(
+                    text: 'Delete',
+                    color: Colors.red,
+                    onTap: () {
+                      print('delete');
+                    },
+                  ),
+                  LeftScrollItem(
+                    text: 'Edit',
+                    color: Colors.orange,
+                    onTap: () {
+                      print('edit');
+                    },
+                  ),
+                ],
+                onTap: () {
+                  print('tap row');
+                },
               ),
-              buttons: <Widget>[
-                LeftScrollItem(
-                  text: 'Delete',
-                  color: Colors.red,
-                  onTap: () {
-                    print('delete');
-                  },
-                ),
-                LeftScrollItem(
-                  text: 'Edit',
-                  color: Colors.orange,
-                  onTap: () {
-                    print('edit');
-                  },
-                ),
-              ],
-              onTap: () {
-                print('tap row');
-              },
             ),
             CupertinoLeftScroll(
               buttonWidth: 60,
