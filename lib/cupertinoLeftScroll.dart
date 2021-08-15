@@ -159,43 +159,41 @@ class CupertinoLeftScrollState extends State<CupertinoLeftScroll>
 
   @override
   Widget build(BuildContext context) {
-    Widget body = Stack(
-      alignment: Alignment.centerRight,
-      children: <Widget>[
-        Positioned.fill(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                width: widget.buttonWidth * widget.buttons.length +
-                    widget._bounceStyle.maxDistance,
-                child: _WxStyleButtonGroup(
-                  opaChange: widget.opacityChange,
-                  buttonWidth: widget.buttonWidth,
-                  bounceDistance: widget._bounceStyle.maxDistance,
-                  progress: progress,
-                  children: widget.buttons ?? [],
-                ),
+    Widget body = RawGestureDetector(
+        gestures: gestures,
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: <Widget>[
+            Positioned.fill(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    width: widget.buttonWidth * widget.buttons.length + widget._bounceStyle.maxDistance,
+                    child: _WxStyleButtonGroup(
+                      opaChange: widget.opacityChange,
+                      buttonWidth: widget.buttonWidth,
+                      bounceDistance: widget._bounceStyle.maxDistance,
+                      progress: progress,
+                      children: widget.buttons ?? [],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        RawGestureDetector(
-          gestures: gestures,
-          child: Transform.translate(
-            offset: Offset(bounceTranslate, 0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: widget.child,
-                )
-              ],
             ),
-          ),
-        )
-      ],
-    );
+            Transform.translate(
+              offset: Offset(bounceTranslate, 0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: widget.child,
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
     return widget.closeOnPop
         ? WillPopScope(
             child: body,
