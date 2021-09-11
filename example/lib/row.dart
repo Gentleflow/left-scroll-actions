@@ -4,15 +4,15 @@ import 'package:left_scroll_actions/left_scroll_actions.dart';
 
 // 如果Row的背景必须是透明颜色的，就要做处理了：
 class ExampleRow extends StatefulWidget {
-  final Function onTap;
+  final Function()? onTap;
   final Function onEdit;
   final Function onDelete;
 
   const ExampleRow({
-    Key key,
-    this.onTap,
-    this.onDelete,
-    this.onEdit,
+    Key? key,
+    required this.onTap,
+    required this.onDelete,
+    required this.onEdit,
   }) : super(key: key);
 
   @override
@@ -112,7 +112,7 @@ class _ExampleRowState extends State<ExampleRow> {
 class OVText {
   // 偏大文字
   static Widget main(title,
-      {double fontsize, Color color, TextAlign align: TextAlign.left}) {
+      {double? fontsize, Color? color, TextAlign align: TextAlign.left}) {
     return Text(
       title,
       maxLines: 1,
@@ -129,7 +129,7 @@ class OVText {
 
   //  正文
   static Widget normal(title,
-      {double fontsize: 14, Color color, TextAlign align: TextAlign.left}) {
+      {double fontsize: 14, Color? color, TextAlign align: TextAlign.left}) {
     return Text(
       title,
       textAlign: align,

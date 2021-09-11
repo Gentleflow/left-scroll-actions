@@ -9,56 +9,56 @@ class LeftScrollListItem {
   final List<Widget> buttons;
   final Function onTap;
   LeftScrollListItem({
-    @required this.key,
-    @required this.child,
-    @required this.buttons,
-    @required this.onTap,
+    required this.key,
+    required this.child,
+    required this.buttons,
+    required this.onTap,
   });
 }
 
 /// 左滑列表，只有一个可以打开
 @deprecated
 class LeftScrollList extends StatefulWidget {
-  final int count;
-  final LeftScrollListItem Function(BuildContext, int) builder;
-  final bool closeOnPop;
+  final int? count;
+  final LeftScrollListItem Function(BuildContext, int)? builder;
+  final bool? closeOnPop;
   final double buttonWidth;
 
   /// listview的属性，抄了一遍
   final Axis scrollDirection;
   final bool reverse;
-  final ScrollController controller;
-  final bool primary;
-  final ScrollPhysics physics;
+  final ScrollController? controller;
+  final bool? primary;
+  final ScrollPhysics? physics;
   final bool shrinkWrap;
-  final EdgeInsetsGeometry padding;
-  final double itemExtent;
+  final EdgeInsetsGeometry? padding;
+  final double? itemExtent;
   final bool addAutomaticKeepAlives;
   final bool addRepaintBoundaries;
   final bool addSemanticIndexes;
-  final double cacheExtent;
-  final int semanticChildCount;
+  final double? cacheExtent;
+  final int? semanticChildCount;
   final DragStartBehavior dragStartBehavior = DragStartBehavior.start;
 
   const LeftScrollList.builder({
-    Key key,
-    this.count,
+    Key? key,
+     this.count,
     this.buttonWidth: 80,
-    this.builder,
-    this.controller,
-    this.primary,
-    this.physics,
-    this.padding,
-    this.itemExtent,
-    this.cacheExtent,
-    this.semanticChildCount,
+     this.builder,
+     this.controller,
+     this.primary,
+     this.physics,
+     this.padding,
+     this.itemExtent,
+     this.cacheExtent,
+     this.semanticChildCount,
     this.reverse: false,
     this.shrinkWrap: false,
     this.addAutomaticKeepAlives: true,
     this.addRepaintBoundaries: true,
     this.addSemanticIndexes: true,
     this.scrollDirection: Axis.vertical,
-    this.closeOnPop,
+     this.closeOnPop,
   }) : super(key: key);
 
   @override
@@ -88,7 +88,7 @@ class _LeftScrollListState extends State<LeftScrollList> {
       itemBuilder: (ctx, index) {
         var item = widget.builder?.call(ctx, index);
         return ClosableLeftScroll(
-          isClose: _markMap[item.key] ?? true,
+          isClose: _markMap[item!.key] ?? true,
           closeOnPop: widget.closeOnPop ?? true,
           key: Key(item.key), // Note:Important,Must add key;
           onTouch: () {
@@ -126,28 +126,28 @@ class _LeftScrollListState extends State<LeftScrollList> {
 class ClosableLeftScroll extends StatefulWidget {
   final Key key;
 
-  final bool isClose;
+  final bool? isClose;
 
   final bool closeOnPop;
   final Widget child;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final double buttonWidth;
   final List<Widget> buttons;
 
-  final Function(double) onScroll;
+  final Function(double)? onScroll;
 
-  final VoidCallback onTouch;
-  final VoidCallback onSlideStarted;
+  final VoidCallback? onTouch;
+  final VoidCallback? onSlideStarted;
 
-  final VoidCallback onSlideCompleted;
+  final VoidCallback? onSlideCompleted;
 
-  final VoidCallback onSlideCanceled;
-  final VoidCallback onEnd;
+  final VoidCallback? onSlideCanceled;
+  final VoidCallback? onEnd;
 
   ClosableLeftScroll({
-    this.key,
-    @required this.child,
-    @required this.buttons,
+    required this.key,
+    required this.child,
+    required this.buttons,
     this.onSlideStarted,
     this.onSlideCompleted,
     this.onSlideCanceled,
@@ -170,11 +170,11 @@ class ClosableLeftScroll extends StatefulWidget {
 class ClosableLeftScrollState extends State<ClosableLeftScroll>
     with TickerProviderStateMixin {
   double translateX = 0;
-  double maxDragDistance;
+  late double maxDragDistance;
   final Map<Type, GestureRecognizerFactory> gestures =
       <Type, GestureRecognizerFactory>{};
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void didUpdateWidget(ClosableLeftScroll oldWidget) {
@@ -283,11 +283,11 @@ class ClosableLeftScrollState extends State<ClosableLeftScroll>
 
   void onHorizontalDragUpdate(DragUpdateDetails details) {
     translateX = (translateX + details.delta.dx).clamp(-maxDragDistance, 0.0);
-    if (!_hasCall && details.primaryDelta < 0) {
-      widget.onSlideStarted?.call();
+    if (!_hasCall && details.primaryDelta! < 0) {
+      widget.onSlideStarted!.call();
       _hasCall = true;
     }
-    widget.onScroll?.call(
+    widget.onScroll!.call(
       translateX / maxDragDistance * -1,
     );
 
@@ -315,14 +315,14 @@ class ClosableLeftScrollState extends State<ClosableLeftScroll>
     widget.onEnd?.call();
     if (translateX != -maxDragDistance)
       animationController.animateTo(-maxDragDistance).then((_) {
-        if (widget.onSlideCompleted != null) widget.onSlideCompleted.call();
+        if (widget.onSlideCompleted != null) widget.onSlideCompleted!.call();
       });
   }
 
   void close() {
     if (translateX != 0)
       animationController.animateTo(0).then((_) {
-        if (widget.onSlideCanceled != null) widget.onSlideCanceled.call();
+        if (widget.onSlideCanceled != null) widget.onSlideCanceled!.call();
       });
   }
 
